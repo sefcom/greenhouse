@@ -1,0 +1,10 @@
+future
+requests==2.21.0
+paramiko
+pysnmp==4.4.6
+pycryptodome
+pytest==4.4.0
+pytest-forked
+pytest-xdist
+flake8
+git+git://github.com/threat9/threat9-test-bed

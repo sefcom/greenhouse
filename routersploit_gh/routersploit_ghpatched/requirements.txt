@@ -1,0 +1,5 @@
+future
+requests==2.21.0
+paramiko
+pysnmp==4.4.6
+pycryptodome
