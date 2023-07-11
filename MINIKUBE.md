@@ -16,9 +16,9 @@ this builds the Greenhouse image directly inside the minikube environment.
 
 You may also build the image locally, then pull/transfer the image into the minikube environment instead.
 
-4) setup your targets. This is done by copying targets of interest into the `samplesfull` folder inside the `k8` folder and generating a corresponding `targets.list` file.
+4) setup your targets. This is done by copying targets of interest into the `samplesfull` folder inside the `k8` folder and generating a corresponding `targets.list` file. Targets should be placed in `samplesfull` in the form `samplesfull/<BRAND>/<TARGETFILE>` for example, `samplesfull/asus/FW_BLUECAVE_300438446630`
 
-A helper script has been provided to generate a targets.list file based on the contents of the `samplesfull` folder.
+Once the firmware samples have been placed, use the helper script provided to generate a targets.list file based on the contents of the `samplesfull` folder.
 
 ./gen_targets.sh <path-to-samplesfull-folder>
 
