@@ -1,28 +1,28 @@
-1) Install minikube as per https://minikube.sigs.k8s.io/docs/start/
+1) Install minikube as per https://minikube.sigs.k8s.io/docs/start
 
-Make sure you have kubectl installed, or use the built-in `minikube kubectl`
+Make sure you have kubectl installed (as per https://kubernetes.io/docs/reference/kubectl/), or use the built-in `minikube kubectl`
 
-2) run minikube
+2) run minikube. We recommend ensuring you have ~4gb of memory and 0.5 cpus per Greenhouse pod intended to run at minimum.
 
-minikube start --memory 32768 --cpus 4
+`minikube start --memory 32768 --cpus 4`
 
-We recommend ensuring you have ~4gb of memory and 0.5 cpus per Greenhouse pod intended to run at minimum.
+Note: we have observed errors that occur when minikube uses docker as the primary device while docker has not been configured to run as root. Please ensure you have a working installation of minikube before proceeding with the rest of the steps.
 
 3) setup the minikube environment
 
-./minikube_setup.sh
+`./minikube_setup.sh`
 
-this builds the Greenhouse image directly inside the minikube environment.
+this builds the Greenhouse image directly inside the minikube environment and mounts the k8 directory which will contain our samples and results. Keep this process alive until you are done - ctr+c to exit will automatically clean up the rest of the environment.
 
-You may also build the image locally, then pull/transfer the image into the minikube environment instead.
+You may also build the image locally, then pull/transfer the image into the minikube environment instead. Note that if you do this, you will still need to mount the k8 and dev directories as per the `minikube_setup.sh` script.
 
-4) setup your targets. This is done by copying targets of interest into the `samplesfull` folder inside the `k8` folder and generating a corresponding `targets.list` file. Targets should be placed in `samplesfull` in the form `samplesfull/<BRAND>/<TARGETFILE>` for example, `samplesfull/asus/FW_BLUECAVE_300438446630`
+4) setup your targets. This is done by copying targets of interest into the `samplesfull` folder inside the `k8` folder and generating a corresponding `targets.list` file. Targets should be placed in `samplesfull` in the form `samplesfull/<BRAND>/<TARGETFILE>` for example, `samplesfull/asus/FW_BLUECAVE_300438446630.zip`
 
-Once the firmware samples have been placed, use the helper script provided to generate a targets.list file based on the contents of the `samplesfull` folder.
+Once the firmware samples have been placed, use the helper script provided to generate a `targets.list` file based on the contents of the `samplesfull` folder.
 
-./gen_targets.sh <path-to-samplesfull-folder>
+`./gen_targets.sh <path-to-samplesfull-folder>`
 
-A sample `targets.list` has been provided, along with the `full.list` file that was used for our original experiment on 7,140 firmware samples.
+An example list `examples.list` has been provided, along with the `full.list` file that was used for our original experiment on 7,140 firmware samples.
 
 5) prepare the .yaml file
 
@@ -32,14 +32,32 @@ For more information on using .yaml jobs with kubernetes or minikube, refer to t
 
 6) run Greenhouse using kubernetes
 
-kubectl apply -f gh_job.yaml
+`kubectl apply -f gh_job.yaml`
 
-The results should complete within 24 hours, usually 4-6 hours on average.
+if using the minikube kubectl
 
-Rehosted images will be present in the mounted k8 folder, k8/results/<imageid_sha256hash>
+`minikube kubectl -- apply -f gh_job.yaml`
 
-Logs are present in k8/logs/<imageid>
+After about a minute, check that the pods are running with
+
+`kubectl get pods` or `minikube kubectl -- get pods`
+
+When all pods are finished, it will indicate 'Complete' for all of them. Note that some pods may show Error as part of the fail/retry mechanism in Greenhouse.
+
+The results should complete within 24 hours, usually 4-6 hours on average. Rehosted images will be present in the mounted k8 folder, k8/results/<imageid_sha256hash>. Logs are present in k8/logs/<imageid>
 
 All logs inside the logs folder will end with a message printing if a run was a SUCCESS, a PARTIAL success or FAILED.
 
 Note that even if an image failed to rehost, Greenhouse will still copy whatever it managed to do into the results folder for future reference/debugging.
+
+7) Once all pods are complete, delete the job with
+
+`kubectl delete -f gh_job.yaml`
+
+if using the minikube kubectl
+
+`minikube kubectl -- delete -f gh_job.yaml`
+
+then, delete and cleanup minikube by CTR+C on the minikube_setup.sh script, which will perform cleanup.
+
+(You may also manually delete the minikube instance with `minikube delete --all`, then use losetup to cleanup any dangling loop devices/mounts.)
