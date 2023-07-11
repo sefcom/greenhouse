@@ -20,3 +20,9 @@ Use `make release` to build the standalone artifact used in our evaluation
 
 ## routersploit_ghpatched
 Modified version of routersploit (https://github.com/threat9/routersploit) framework used to replay commonly known router exploits on rehosted Greenhouse firmware images 
+
+## Running
+
+Refer to MINIKUBE.md for instructions on setting up minikube to batch run Greenhouse
+
+Otherwise, refer to MANUAL.md for instructions on running Greenhouse manually
