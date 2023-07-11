@@ -1,0 +1,64 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: greenhouse-batch
+spec:
+  completions: 10 # Adjust to total number of targets
+  parallelism: 10 # Adjust based on available resources
+  completionMode: Indexed
+  backoffLimit: 100
+  podFailurePolicy:
+    rules:
+    - action: Ignore
+      onExitCodes:
+        operator: In
+        values: [42]
+    - action: Count
+      onExitCodes:
+        operator: NotIn
+        values: [0]
+    - action: Ignore
+      onPodConditions:
+      - type: DisruptionTarget
+  template:
+    spec:
+      restartPolicy: Never
+      activeDeadlineSeconds: 216000
+      containers:
+      - name: gh-single-worker
+        image: greenhouse:usenix-eval-jul2023
+        imagePullPolicy: Never
+        securityContext:
+          privileged: true
+        resources:
+          limits:
+            memory: "64Gi"
+            cpu: "3"
+          requests:
+            memory: "8Gi"
+            cpu: "0.5"
+        command:
+        - 'bash'
+        - '-c'
+        - '/gh/entrypoint.sh /shared /shared/targets.list ${JOB_COMPLETION_INDEX}'
+        volumeMounts:
+        - name: gh-shared
+          mountPath: "/shared"
+        - name: fakedev
+          mountPath: "/host/dev"
+        env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+      volumes:
+        - name: gh-shared
+          hostPath:
+            path: /shared
+        - name: fakedev
+          hostPath:
+            path: /host/dev
