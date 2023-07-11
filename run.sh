@@ -60,6 +60,11 @@ LOOPDEVS=`losetup | grep "FirmAE" | grep "image.raw" | grep "deleted" | tr "/" "
 for LDEV in $LOOPDEVS; do
 	echo "Disconnecting " $LDEV
 	losetup -d /dev/$LDEV
+done
+
+LOOPDEVS=`losetup | grep "FirmAE" | grep "image.raw" | grep "deleted" | tr "/" " " | awk '{print $2}'`
+for LDEV in $LOOPDEVS; do
+	echo "dmsetup removing " ${LDEV}p1
 	dmsetup remove ${LDEV}p1
 done
 
