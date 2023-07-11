@@ -12,7 +12,7 @@ Note: we have observed errors that occur when minikube uses docker as the primar
 
 `./minikube_setup.sh`
 
-this builds the Greenhouse image directly inside the minikube environment and mounts the k8 directory which will contain our samples and results. Keep this process alive until you are done - ctr+c to exit will automatically clean up the rest of the environment.
+this builds the Greenhouse image directly inside the minikube environment and mounts the k8 directory which will contain our samples and results. Building might take a while (~30mins). Keep this process alive until you are done - ctr+c to exit will automatically clean up the rest of the environment.
 
 You may also build the image locally, then pull/transfer the image into the minikube environment instead. Note that if you do this, you will still need to mount the k8 and dev directories as per the `minikube_setup.sh` script.
 
