@@ -3,8 +3,8 @@
 BRAND=${1}
 IMG_PATH=${2}
 
-TEST=`/gh/test.sh`
-if [[ $TEST != 0 ]]; then
+/gh/test.sh
+if [[ $? != 0 ]]; then
 	echo "Greenhouse docker container not setup properly, exiting!"
 	exit 1
 fi
