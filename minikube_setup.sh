@@ -5,6 +5,7 @@
 function cleanup()
 {
 	minikube delete --all
+	while true; do
 	LOOPDEVS=`losetup | grep "FirmAE" | grep "image.raw" | tr "/" " " | awk '{print $2}'`
 	for LDEV in $LOOPDEVS; do
 		echo "losetup -d " $LDEV
@@ -15,11 +16,24 @@ function cleanup()
 		echo "dmsetup remove " ${LDEV}p1
 		sudo dmsetup remove ${LDEV}p1
 	done
+	sleep 60
+done
+
 }
 
 trap cleanup SIGINT
 
-eval $(minikube docker-env) && make release
+mkdir -p k8/logs
+mkdir -p k8/results
+mkdir -p k8/patches
+mkdir -p k8/done
+mkdir -p k8/retries
+
+# eval $(minikube docker-env) && make release
+
+eval $(minikube docker-env) && docker pull capysix/greenhouse-ae:latest && docker tag capysix/greenhouse-ae:latest greenhouse:usenix-eval-jul2023
 
 minikube mount k8:/shared &
-minikube mount /dev:/host/dev --uid root --gid disk
+minikube mount /dev:/host/dev --uid root --gid disk &
+
+sudo ./dev_cleanup.sh

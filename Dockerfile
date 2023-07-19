@@ -52,6 +52,10 @@ COPY Greenhouse /gh
 
 RUN apt-get install -y python-is-python3
 
+COPY chrome104.deb /chrome104.deb
+RUN apt-get install -y --allow-downgrades /chrome104.deb
+RUN rm /chrome104.deb
+
 RUN CHROMEVERSION=`/usr/bin/google-chrome --version | tr "." " " | awk '{print $3}'`; DRIVERVERSION=`curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROMEVERSION`; wget https://chromedriver.storage.googleapis.com/$DRIVERVERSION/chromedriver_linux64.zip
 RUN unzip /chromedriver_linux64.zip
 RUN cp chromedriver /work/FirmAE/chromedriver
