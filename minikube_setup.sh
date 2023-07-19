@@ -5,7 +5,6 @@
 function cleanup()
 {
 	minikube delete --all
-	while true; do
 	LOOPDEVS=`losetup | grep "FirmAE" | grep "image.raw" | tr "/" " " | awk '{print $2}'`
 	for LDEV in $LOOPDEVS; do
 		echo "losetup -d " $LDEV
@@ -16,7 +15,6 @@ function cleanup()
 		echo "dmsetup remove " ${LDEV}p1
 		sudo dmsetup remove ${LDEV}p1
 	done
-done
 
 }
 
