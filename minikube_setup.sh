@@ -32,6 +32,9 @@ mkdir -p k8/retries
 
 eval $(minikube docker-env) && docker pull capysix/greenhouse-ae:latest && docker tag capysix/greenhouse-ae:latest greenhouse:usenix-eval-jul2023
 
+echo "getting sudo for dev_cleanup"
+sudo echo "...done"
+
 minikube mount k8:/shared &
 minikube mount /dev:/host/dev --uid root --gid disk &
 
