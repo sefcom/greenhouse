@@ -38,4 +38,5 @@ sudo echo "...done"
 minikube mount k8:/shared &
 minikube mount /dev:/host/dev --uid root --gid disk &
 
+./docker_cleanup.sh &
 sudo ./dev_cleanup.sh
