@@ -11,5 +11,6 @@ while true; do
 		echo "dmsetup remove " ${LDEV}p1
 		sudo dmsetup remove ${LDEV}p1
 	done
+	eval $(minikube docker-env) && docker container prune --force
 	sleep 60
 done

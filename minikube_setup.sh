@@ -16,7 +16,6 @@ function cleanup()
 		echo "dmsetup remove " ${LDEV}p1
 		sudo dmsetup remove ${LDEV}p1
 	done
-	sleep 60
 done
 
 }
