@@ -1,4 +1,4 @@
-1) Install minikube as per https://minikube.sigs.k8s.io/docs/start
+1) Install `minikube` as per https://minikube.sigs.k8s.io/docs/start and `kvm2` as per https://minikube.sigs.k8s.io/docs/drivers/kvm2/
 
 Make sure you have kubectl installed (as per https://kubernetes.io/docs/reference/kubectl/), or use the built-in `minikube kubectl`
 

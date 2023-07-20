@@ -11,5 +11,5 @@ while true; do
 		echo "dmsetup remove " ${LDEV}p1
 		sudo dmsetup remove ${LDEV}p1
 	done
-	sleep 600
+	sleep 60
 done

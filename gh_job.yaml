@@ -61,4 +61,4 @@ spec:
             path: /shared
         - name: fakedev
           hostPath:
-            path: /host/dev
+            path: /dev

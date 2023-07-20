@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# minikube start --driver=docker --memory 8192 --cpus 4 # --memory 81920 --cpus 10
+# minikube start --driver=kvm2 --memory 8192 --cpus 2
 
 function cleanup()
 {
@@ -34,7 +34,6 @@ echo "getting sudo for dev_cleanup"
 sudo echo "...done"
 
 minikube mount k8:/shared &
-minikube mount /dev:/host/dev --uid root --gid disk &
 
 ./docker_cleanup.sh &
 sudo ./dev_cleanup.sh
