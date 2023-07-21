@@ -2,11 +2,9 @@
 
 Make sure you have kubectl installed (as per https://kubernetes.io/docs/reference/kubectl/), or use the built-in `minikube kubectl`
 
-2) run minikube. We recommend ensuring you have ~4gb of memory and 0.5 cpus per Greenhouse pod intended to run at minimum.
+2) run minikube. We recommend ensuring you have ~16gb of memory and 1 cpus per Greenhouse pod intended to run.
 
-`minikube start --memory 32768 --cpus 4 --device=kvm2`
-
-Note: we have observed errors that occur when minikube uses docker as the primary device while docker has not been configured to run as root. Please ensure you have a working installation of minikube before proceeding with the rest of the steps.
+`minikube start --memory 32768 --cpus 4 --driver=kvm2`
 
 3) setup the minikube environment
 
@@ -61,3 +59,9 @@ if using the minikube kubectl
 then, delete and cleanup minikube by CTR+C on the minikube_setup.sh script, which will perform cleanup.
 
 (You may also manually delete the minikube instance with `minikube delete --all`, then use losetup to cleanup any dangling loop devices/mounts.)
+
+8) You may process the results in `k8/logs` using the provided script `process_logs.py` as follows:
+
+`python3 process_logs.py <path-to-logs-folder>`
+
+The results will be printed directly to stdout in .csv format.
