@@ -35,8 +35,8 @@ spec:
             memory: "64Gi"
             cpu: "3"
           requests:
-            memory: "8Gi"
-            cpu: "0.5"
+            memory: "16Gi"
+            cpu: "1"
         command:
         - 'bash'
         - '-c'
