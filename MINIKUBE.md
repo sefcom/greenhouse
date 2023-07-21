@@ -4,7 +4,7 @@ Make sure you have kubectl installed (as per https://kubernetes.io/docs/referenc
 
 2) run minikube. We recommend ensuring you have ~4gb of memory and 0.5 cpus per Greenhouse pod intended to run at minimum.
 
-`minikube start --memory 32768 --cpus 4`
+`minikube start --memory 32768 --cpus 4 --device=kvm2`
 
 Note: we have observed errors that occur when minikube uses docker as the primary device while docker has not been configured to run as root. Please ensure you have a working installation of minikube before proceeding with the rest of the steps.
 
