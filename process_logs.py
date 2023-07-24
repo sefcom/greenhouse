@@ -1,6 +1,4 @@
 import os, sys
-import IPython
-import traceback
 
 
 brand = ""

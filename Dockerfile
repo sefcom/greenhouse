@@ -113,3 +113,5 @@ COPY crashing_inputs /crashing_inputs
 COPY routersploit_gh/run_routersploit.sh /routersploit
 COPY test.sh /gh/test.sh
 COPY run.sh /gh/run.sh
+
+ENV TERM=xterm
