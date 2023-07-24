@@ -3,8 +3,8 @@ kind: Job
 metadata:
   name: greenhouse-batch
 spec:
-  completions: 10 # Adjust to total number of targets
-  parallelism: 10 # Adjust based on available resources
+  completions: 50 # Adjust to total number of targets
+  parallelism: 4 # Adjust based on available resources
   completionMode: Indexed
   backoffLimit: 100
   podFailurePolicy:
@@ -36,7 +36,7 @@ spec:
             cpu: "3"
           requests:
             memory: "8Gi"
-            cpu: "0.5"
+            cpu: "1"
         command:
         - 'bash'
         - '-c'
