@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ -z $TERM ]]; then
+	export TERM=xterm
+fi
+
 mkdir /tmp/docker
 mount -t tmpfs -o rw,size=12G tmpfs /tmp/docker
 

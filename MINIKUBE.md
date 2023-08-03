@@ -2,9 +2,9 @@
 
 Make sure you have kubectl installed (as per https://kubernetes.io/docs/reference/kubectl/), or use the built-in `minikube kubectl`
 
-2) run minikube. We recommend ensuring you have ~8gb of memory, 8gb of disk space and 1 cpus per Greenhouse pod intended to run.
+2) run minikube. We recommend ensuring you have ~8gb of memory, 16gb of disk space and 1 cpus per Greenhouse pod intended to run.
 
-`minikube start --memory 32768 --cpus 4 --driver=kvm2 --disk-size 32G`
+`minikube start --memory 32768 --cpus 4 --driver=kvm2 --disk-size 64G`
 
 3) setup the minikube environment
 

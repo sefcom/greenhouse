@@ -1,0 +1,3 @@
+[submodule "gh3fuzz"]
+	path = gh3fuzz
+	url = https://github.com/sefcom/gh3fuzz
