@@ -1,3 +1,6 @@
 [submodule "gh3fuzz"]
 	path = gh3fuzz
 	url = https://github.com/sefcom/gh3fuzz
+[submodule "ghqemu5"]
+	path = ghqemu5
+	url = https://github.com/sefcom/ghqemu5
