@@ -899,7 +899,7 @@ class Greenhouse():
         self.write_changelog(self.changelog)
         if self.batchfolder_path:
             Files.rm_files([trace_path, trace_json_path])
-        if self.output_dst_path:
+        if self.output_dst_path and rehost_result != "FAILED":
             output_dir = self.name
             output_dir_path = os.path.join(self.output_dst_path, output_dir)
             print("."*50)
@@ -909,6 +909,10 @@ class Greenhouse():
                                                 checker=checker, external_qemu=self.external_qemu, urls=self.urls, time_to_up=time_to_up)
             Files.rm_folder(self.workspace)
             Files.mkdir(self.workspace)
+        else:
+            print("."*50)
+            print(" - Rehost Failed, skipping copying of fs")
+            print("."*50)
         
         #exit
         print("="*50)
