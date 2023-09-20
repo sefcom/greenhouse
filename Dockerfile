@@ -64,6 +64,9 @@ RUN cp chromedriver /gh
 RUN cp chromedriver /gh/analysis
 RUN rm /chromedriver_linux64.zip
 
+RUN docker pull ubuntu:20.04
+RUN docker save ubuntu:20.04 -o ubuntu.tar
+
 COPY ubuntu.tar /ubuntu.tar
 
 RUN git clone -q https://github.com/sviehb/jefferson
@@ -87,6 +90,11 @@ RUN . /root/venv/bin/activate \
 		  && pip install -r requirements.txt \
 		  && python3 setup.py install
 		  
+RUN . /root/venv/bin/activate \
+		 && pip install paramiko \
+		 && pip uninstall pyelftools -y \
+		 && pip install pyelftools==0.29
+		  
 RUN chmod 777 /usr/bin/sudo
 COPY testimage.tar.gz /testimage.tar.gz
 RUN tar -xzf /testimage.tar.gz
@@ -96,6 +104,7 @@ RUN mkdir /routersploit
 COPY /routersploit_gh/routersploit_ghpatched /routersploit/routersploit_gh
 RUN pip3 install -r /routersploit/routersploit_gh/requirements.txt
 RUN pip3 install lxml pycrypto
+
 RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 RUN chmod +x /usr/local/bin/docker-compose
 
