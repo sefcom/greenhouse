@@ -64,9 +64,6 @@ RUN cp chromedriver /gh
 RUN cp chromedriver /gh/analysis
 RUN rm /chromedriver_linux64.zip
 
-RUN docker pull ubuntu:20.04
-RUN docker save ubuntu:20.04 -o ubuntu.tar
-
 COPY ubuntu.tar /ubuntu.tar
 
 RUN git clone -q https://github.com/sviehb/jefferson
