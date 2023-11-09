@@ -49,3 +49,16 @@ If the containers are not being pruned, run a periodic pruning script inside the
 ### "Out of Memory" errors
 
 Assign more RAM per pod inside `gh_job.yml`. We also recommend minimizing the number of parallelisms if running in minikube.
+
+# Citing
+
+If you use Greenhouse in an academic work, please cite our paper!
+
+```
+@article{tay2023greenhouse,
+  title={Greenhouse: Single-Service Rehosting of Linux-Based Firmware Binaries in User-Space Emulation},
+  author={Tay, Hui Jun and Zeng, Kyle and Vadayath, Jayakrishna Menon and Raj, Arvind S and Dutcher, Audrey and Reddy, Tejesh and Gibbs, Wil and Basque, Zion Leonahenahe and Dong, Fangzhou and Doupe, Adam and others},
+  booktitle={32nd USENIX Security Symposium (USENIX Security 23)},
+  year={2023}
+}
+```
