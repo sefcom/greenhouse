@@ -9,6 +9,10 @@ RUN apt install -y dnsutils jq
 
 RUN python3 -m venv /root/venv
 
+RUN . /root/venv/bin/activate && pip install --upgrade pip
+RUN . /root/venv/bin/activate && pip install "setuptools<68"
+
+
 RUN mkdir -p /work/firmwares
 RUN cd /work && git clone -q --recursive https://github.com/pr0v3rbs/FirmAE
 
@@ -75,23 +79,23 @@ RUN cd /squashfs-tools/squashfs-tools && make && make install
 RUN rm /squashfs-tools.tar.gz
 
 RUN . /root/venv/bin/activate \ 
-		&& pip uninstall -y selenium \
-		&& pip install selenium=="3.141.0"
-		
-RUN . /root/venv/bin/activate \
-		 && pip install wheel \
-		  && pip install -r /gh/requirements.txt
+	&& pip uninstall -y selenium \
+	&& pip install selenium=="3.141.0"
 
 RUN . /root/venv/bin/activate \
-		 && cd /jefferson \
-		  && pip install -r requirements.txt \
-		  && python3 setup.py install
-		  
+	&& pip install wheel \
+	&& pip install -r /gh/requirements.txt
+
 RUN . /root/venv/bin/activate \
-		 && pip install paramiko \
-		 && pip uninstall pyelftools -y \
-		 && pip install pyelftools==0.29
-		  
+	&& cd /jefferson \
+	&& pip install -r requirements.txt \
+	&& python3 setup.py install
+
+RUN . /root/venv/bin/activate \
+	&& pip install paramiko \
+	&& pip uninstall pyelftools -y \
+	&& pip install pyelftools==0.29
+
 RUN chmod 777 /usr/bin/sudo
 COPY testimage.tar.gz /testimage.tar.gz
 RUN tar -xzf /testimage.tar.gz
