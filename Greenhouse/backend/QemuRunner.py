@@ -298,6 +298,8 @@ class QemuRunner:
 
         for dnet in docker_networks:
             configs = dnet.attrs['IPAM']['Config']
+            if not configs:
+                continue
             for conf in configs:
                 subnet = conf['Subnet']
                 subnet_addr = subnet.split("/")[0]
